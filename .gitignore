@@ -3,6 +3,7 @@
 
 # Test output folder.
 /tests/data/
+/tests/python_tests/output/
 
 # Media folders.
 /media

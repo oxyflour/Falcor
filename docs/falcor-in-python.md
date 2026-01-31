@@ -69,6 +69,37 @@ a the Python interpreter:
 
 You can also run the [examples](#examples) listed at the end of this document.
 
+## Building the Python Module
+
+Falcor ships with a prebuilt Python runtime, so you can build the Python module
+against that by default. If you need to build against a specific Python
+installation (for example, a Conda environment), configure CMake to use the
+active Python interpreter by enabling `FALCOR_USE_SYSTEM_PYTHON`.
+
+1. Create and activate the environment (example using the provided Conda file):
+
+   ```
+   conda env create -f environment.yml
+   conda activate falcor-pytorch
+   ```
+
+2. Configure CMake from the activated shell so it can locate the Python
+   interpreter and libraries:
+
+   ```
+   cmake -S . -B build/ninja \
+     -DFALCOR_USE_SYSTEM_PYTHON=ON \
+     -DPython_ROOT_DIR="${CONDA_PREFIX}"
+   ```
+
+   On Windows, you can use `%CONDA_PREFIX%` in place of `${CONDA_PREFIX}` when
+   calling CMake from `cmd.exe` or PowerShell.
+
+3. Build as usual for your platform (for example, `cmake --build build/ninja`).
+
+When the build completes, follow the steps above to run `setpath` from the build
+output directory so the Python module can be imported in the active environment.
+
 ## IDE (Integrated Development Environment) Support
 
 The Falcor build system generates _Python interface stub files_ for the Python
